@@ -16,23 +16,30 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { FiUser, FiShoppingBag } from "react-icons/fi";
+import { FiUser, FiShoppingBag, FiHeart } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoLogoXbox } from "react-icons/io";
 
-const Links = ["NEW", "SALE", "MEN", "WOMEN"];
+const Links = [
+  { title: "NEW" },
+  { title: "SALE" },
+  { title: "MEN" },
+  { title: "WOMEN" },
+];
 
 const NavLink = ({ children }) => (
   <Link
     px={2}
     py={1}
     rounded="md"
+    fontSize="sm"
     _hover={{
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    fontWeight="bold"
-    href={"#"}
+    fontWeight="800"
+    fontFamily="'Roboto Condensed', sans-serif"
+    href="#"
   >
     {children}
   </Link>
@@ -42,11 +49,12 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <Box>
       <Box
         bg={useColorModeValue("white", "gray.900")}
         px={4}
         borderBottom="1px solid #EBEBEB"
+        padding={4}
       >
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <IconButton
@@ -56,26 +64,37 @@ const Navbar = () => {
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems="center">
-            <Box>
+          <HStack
+            spacing={8}
+            alignItems="center"
+            divider={<StackDivider borderColor="gray.200" />}
+            align="stretch"
+          >
+            <Box cursor="pointer" ml={4}>
               <HiMenuAlt2 fontSize="22px" />
             </Box>
-            <Box>
-                <IoLogoXbox fontSize="25px" />
+            <Box cursor="pointer">
+              <IoLogoXbox fontSize="25px" />
             </Box>
             <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
               {Links.map((link, index) => (
-                <NavLink key={index}>{link}</NavLink>
+                <NavLink key={index}>{link.title}</NavLink>
               ))}
             </HStack>
+            <Flex alignItems="center" justifyContent="center">
+              <NavLink><FiHeart /></NavLink>
+              <NavLink>{"SEARCH"}</NavLink>
+            </Flex>
+            
           </HStack>
-          <Flex alignItems="center">
-            <Box mr={8}>
-              <FiShoppingBag />
+          {/* Icons rightmost */}
+          <Flex alignItems="center" mr="10">
+            <Box mr={8} cursor="pointer">
+              <FiShoppingBag fontSize="22px" />
             </Box>
             <Menu>
               <MenuButton as={Button} rounded="full" variant="link" minW={0}>
-                <FiUser color="#000" />
+                <FiUser color="#000" fontSize="22px" />
               </MenuButton>
               <MenuList>
                 <MenuItem>Profile</MenuItem>
@@ -97,7 +116,7 @@ const Navbar = () => {
           </Box>
         ) : null}
       </Box>
-    </>
+    </Box>
   );
 };
 
