@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import gsap from "gsap";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 // Components
 import {
   Box,
@@ -14,7 +18,6 @@ import {
 import Navigation from "./Components/Navigation";
 // Icons
 import { BsChevronRight } from "react-icons/bs";
-import gsap from "gsap";
 
 const Head = ({ children }) => (
   <Heading
@@ -46,7 +49,7 @@ const CircularSize = (props) => (
 );
 
 const GalleryImg = (props) => (
-  <Box onClick={props.onClick}>
+  <Box onClick={props.onClick} data-aos="fade-left">
     <Img
       src={props.url}
       alt={props.alt}
@@ -64,61 +67,66 @@ const GalleryImg = (props) => (
 );
 
 const Homepage = () => {
-  const [currentImg, setCurrentImg] = useState('.model-img-1');
+  const [currentImg, setCurrentImg] = useState(".model-img-1");
+
+  useEffect(() => {
+    AOS.init();
+    console.log("AOS initialized")
+  }, []);
 
   const handleAddBtn = () => {
     console.log("Current Img: ", currentImg);
-  }
+  };
 
   const handleModelTwo = () => {
     console.log("Clicked Second Image");
     gsap.to(currentImg, {
-      duration: 1.5,
+      duration: 1,
       x: 300,
       opacity: 0,
       display: "none",
-      ease: "back"
+      ease: "back",
     });
 
     setTimeout(() => {
       gsap.to(".model-img-2", { display: "block" });
-      
+
       gsap.from(".model-img-2", {
-        duration: 1.5,
+        duration: 1,
         x: 300,
         opacity: 0,
         ease: "back",
-        display: "block"
+        display: "block",
       });
-    }, 1500);
+    }, 1000);
 
-    setCurrentImg('.model-img-2');
+    setCurrentImg(".model-img-2");
   };
 
   const handleModelThree = () => {
     console.log("Clicked Third Image");
     gsap.to(currentImg, {
-      duration: 1.5,
+      duration: 1,
       x: 300,
       opacity: 0,
       display: "none",
-      ease: "back"
+      ease: "back",
     });
 
     setTimeout(() => {
       gsap.to(".model-img-3", { display: "block" });
-      
+
       gsap.from(".model-img-3", {
-        duration: 1.5,
+        duration: 1,
         x: 300,
         opacity: 0,
         ease: "back",
-        display: "block"
+        display: "block",
       });
-    }, 1500);
+    }, 1000);
 
-    setCurrentImg('.model-img-3');
-  }
+    setCurrentImg(".model-img-3");
+  };
 
   return (
     <Flex flexDir="column" w="100vw">
@@ -137,6 +145,7 @@ const Homepage = () => {
                 <Text>V-neck shirt with collar, Long sleeves with cuffs.</Text>
                 <Text>Front tie at hem. Front button closure.</Text>
               </VStack>
+
               <Flex
                 boxSize="100px"
                 bg="#CD3E4A"
@@ -224,19 +233,27 @@ const Homepage = () => {
             zIndex={-1}
           />
           <HStack spacing={"-200px"}>
-            <Box ml="-10" className="model-img-1">
+            <Box className="model-img-1" data-aos="fade-right">
               <Image
                 src="https://i.postimg.cc/XYYrDhXy/og-model.png"
                 alt="model-1"
               />
             </Box>
-            <Box className="model-img-2" transform={"translate(200px, 0)"} display="none">
+            <Box
+              className="model-img-2"
+              transform={"translate(200px, 0)"}
+              display="none"
+            >
               <Image
                 src="https://i.postimg.cc/zfmSRGFz/Screenshot-2021-10-11-at-11-15-20-AM-removebg-preview.png"
                 alt="model-2"
               />
             </Box>
-            <Box className="model-img-3" transform={"translate(200px, 0)"} display="none">
+            <Box
+              className="model-img-3"
+              transform={"translate(200px, 0)"}
+              display="none"
+            >
               <Image
                 src="https://i.postimg.cc/VNj99PKj/Screenshot-2021-10-11-at-11-15-31-AM-removebg-preview.png"
                 alt="model-2"
