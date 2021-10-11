@@ -1,3 +1,4 @@
+// Component Imports
 import {
   Box,
   Flex,
@@ -15,6 +16,7 @@ import {
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
+// Icons
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { FiUser, FiShoppingBag, FiHeart } from "react-icons/fi";
 import { HiMenuAlt2 } from "react-icons/hi";
